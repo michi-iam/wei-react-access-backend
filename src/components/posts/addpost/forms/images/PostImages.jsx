@@ -1,14 +1,13 @@
 import React from "react"
 
-import axios from "axios"
+import getDataWithAxios from "../../../../axios/MyGetAxios";
+import postDataWithAxios from "../../../../axios/MyPostAxios";
 
 
-
-const TOKEN = process.env.REACT_APP_AUTH_TOKEN;
 const URL_ADD_OR_REMOVE_POST_IMAGE = process.env.REACT_APP_URL_ADD_OR_REMOVE_POST_IMAGE;
 const URL_SET_MAINIMAGE = process.env.REACT_APP_URL_SET_MAINIMAGE;
 
-
+const URL_GET_AVAILABLE_IMAGES = process.env.REACT_APP_URL_GET_AVAILABLE_IMAGES;
 // function containsObject(obj, list) {
 //   var i;
 //   for (i = 0; i < list.length; i++) {
@@ -40,49 +39,45 @@ class PostImages extends React.Component {
  
 
   componentDidMount() {
-    axios.get(`http://192.168.178.72:8000/get_available_images`, {params:{postId: this.state.post.id}})
-    .then(res => {
-      var data = res.data;
-     this.setState({ availableImages: data.availableImages})
-    })
+    var self = this;
+    getDataWithAxios(URL_GET_AVAILABLE_IMAGES, function(data){
+      self.setState({ availableImages: data.availableImages})
+    }, {params:{postId: self.state.post.id}})
+
+    
+
   }
 
   addOrRemovePostImage(image, remove){
     var self = this;
-    axios.defaults.headers.common["Authorization"] = TOKEN; // doesn't work (401)
-    axios.post(URL_ADD_OR_REMOVE_POST_IMAGE, {
+
+
+    postDataWithAxios(URL_ADD_OR_REMOVE_POST_IMAGE, {
       imageId: image.id,
       postId: this.state.post.id,
       remove: remove
+    }, function(data){
+      self.setState({ post:data.post,
+        postImages:data.postImages,
+        availableImages:data.availableImages,
+      })
     })
-    .then(function (response) {
-      var post = response.data.post
-      var postImages = response.data.postImages
-      var availableImages = response.data.availableImages
-      self.setState({ post:post })
-      self.setState({ postImages:postImages })
-      self.setState({ availableImages:availableImages })
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+
   }
 
   setMainImage({ image, self }){
-    axios.defaults.headers.common["Authorization"] = TOKEN; // doesn't work (401)
-    axios.post(URL_SET_MAINIMAGE, {
+
+    postDataWithAxios(URL_SET_MAINIMAGE, {
       imageId: image.id,
       postId: this.state.post.id,
+    }, function(data){
+      self.setState({
+        mainImage: data.mainImage,
+        postImages: data.postImages
+      })
     })
-    .then(function (response) {
-      var mainImage = response.data.mainImage
- 
-      self.setState({ mainImage:mainImage })
-      self.setState({ postImages:response.data.postImages })
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+
+
   }
 
     render() {
@@ -152,64 +147,3 @@ export default PostImages;
 
 
 
-  // // mit axios posten
-  // addToPostImages(image){
-  //   // this.setState({ postImages: this.state.postImages.concat(image)})
-  //   // const newList = this.state.availableImages.filter((item) => item.src !== image.src);
-  //   // this.setState({ availableImages: newList })
-  //   // console.log(image.id)
-  //   // var post = ""
-
-  //   var self = this;
-  //   axios.defaults.headers.common["Authorization"] = TOKEN; // doesn't work (401)
-  //   axios.post(URL_ADD_OR_REMOVE_POST_IMAGE, {
-  //     imageId: image.id,
-  //     postId: this.state.post.id,
-  //   })
-  //   .then(function (response) {
-  //     var post = response.data.post
-  //     var postImages = response.data.postImages
-  //     var availableImages = response.data.availableImages
-  //     self.setState({ post:post })
-  //     self.setState({ postImages:postImages })
-  //     self.setState({ availableImages:availableImages })
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-
-    
-  // }
-
-
-
-
-
-// removeFromPostImages(image){
-//   // const newList = this.state.postImages.filter((item) => item.src !== image.src)
-//   // this.setState({ postImages: newList })
-//   // this.setState({ availableImages: this.state.availableImages.concat(image) }) 
-
-//   // var post = ""
-//   var self = this;
-
-//   axios.defaults.headers.common["Authorization"] = TOKEN; // doesn't work (401)
-//   axios.post(URL_REMOVE_POST_IMAGE, {
-//     imageId: image.id,
-//     postId: this.state.post.id,
-//   })
-//   .then(function (response) {
-//     console.log(response);
-//     var post = response.data.post
-//     var postImages = response.data.postImages
-//     var availableImages = response.data.availableImages
-  
-//     self.setState({ post:post })
-//     self.setState({ postImages:postImages })
-//     self.setState({ availableImages:availableImages })
-//   })
-//   .catch(function (error) {
-//     console.log(error);
-//   });
-  
-// }

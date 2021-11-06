@@ -1,10 +1,10 @@
 import React from "react"
 
-import axios from "axios";
+
 import getDataWithAxios from "../../../../axios/MyGetAxios";
+import postDataWithAxios from "../../../../axios/MyPostAxios";
 
 
-const TOKEN = process.env.REACT_APP_AUTH_TOKEN;
 const URL_CHANGE_TEMPLATE_OR_CATEGORY = process.env.REACT_APP_URL_CHANGE_TEMPLATE_OR_CATEGORY;
 const URL_GET_POSTCHOICES = process.env.REACT_APP_URL_GET_POSTCHOICES;
 
@@ -48,20 +48,13 @@ class CategoryAndTemplate extends React.Component {
         this.setState({
             [name]: value    });
 
-        console.log("HANDEL CHANGE")
-        console.log(this.state.is_template)
-        console.log(this.state.templateId)
-        console.log(this.state.categoryId)
-
         var postId = this.state.post.id
         var change = ""
         var changeId = ""
-        //this.state.is_template ? {change= "template", changeId = this.state.templateId }: {change= "category", changeId=this.state.changeId};
         if(this.state.is_template === true){
           change= "template"
           changeId = value
-          console.log("template ok")
-          console.log(changeId)
+
         }
         else {
           change= "category"
@@ -69,27 +62,22 @@ class CategoryAndTemplate extends React.Component {
         }
         
         var self = this;
-        axios.defaults.headers.common["Authorization"] = TOKEN; // doesn't work (401)
-        axios.post(URL_CHANGE_TEMPLATE_OR_CATEGORY, {
+
+        postDataWithAxios(URL_CHANGE_TEMPLATE_OR_CATEGORY, {
           postId: postId,
           changeId: changeId,
           change: change,
+        }, function(data){
+          self.setState({ post: data.post, 
+            category: data.category,
+            template: data.template,
+            is_template: data.is_template,
+            categoryId: data.category.id,
+            templateId: data.template.id
+          })
 
-  
         })
-        .then(function (response) {
-          self.setState({ post: response.data.post })
-          self.setState({ category: response.data.category })
-          self.setState({ template: response.data.template })
-          self.setState({ is_template: response.data.is_template })
-          self.setState({ categoryId: response.data.category.id })
-          self.setState({ templateId: response.data.template.id })
-          
-    
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+
     }
 
   

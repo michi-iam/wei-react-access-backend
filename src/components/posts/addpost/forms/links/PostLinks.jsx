@@ -1,11 +1,15 @@
 import React from "react"
-import axios from "axios";
 
-const URL_REMOVE_LINK_FROM_POST = process.env.REACT_APP_URL_REMOVE_LINK_FROM_POST
-const URL_ADD_LINK_TO_POST = process.env.REACT_APP_URL_ADD_LINK_TO_POST
-const TOKEN = process.env.REACT_APP_AUTH_TOKEN;
+
+import postDataWithAxios from "../../../../axios/MyPostAxios";
+import getDataWithAxios from "../../../../axios/MyGetAxios";
+
+const URL_REMOVE_LINK_FROM_POST = process.env.REACT_APP_URL_REMOVE_LINK_FROM_POST;
+const URL_ADD_LINK_TO_POST = process.env.REACT_APP_URL_ADD_LINK_TO_POST;
 const URL_ADD_NEW_LINK = process.env.REACT_APP_URL_ADD_NEW_LINK;
-const URL_GET_AVAILABLE_LINKS = process.env.REACT_APP_URL_GET_AVAILABLE_LINKS
+const URL_GET_AVAILABLE_LINKS = process.env.REACT_APP_URL_GET_AVAILABLE_LINKS;
+
+
 class PostLinks extends React.Component {
     constructor(props) {
       super(props);
@@ -24,12 +28,11 @@ class PostLinks extends React.Component {
     }
   
     componentDidMount() {
-      axios.get(URL_GET_AVAILABLE_LINKS, {params: { postId: this.state.post.id }})
-      .then(response => {
-      this.setState({ availableLinks: response.data.availableLinks})
+      var self = this;
+      getDataWithAxios(URL_GET_AVAILABLE_LINKS, function(data){
+        self.setState({ availableLinks: data.availableLinks})
+      }, {params: { postId: this.state.post.id }})
 
-
-      })
     }
 
     // Add new Link
@@ -47,75 +50,62 @@ class PostLinks extends React.Component {
         var newLinkName = this.state.newLinkName
 
         var self = this;
-        axios.defaults.headers.common["Authorization"] = TOKEN; // doesn't work (401)
-        axios.post(URL_ADD_NEW_LINK, {
+
+        postDataWithAxios(URL_ADD_NEW_LINK, {
           postId: postId,
           newLinkHref: newLinkHref,
           newLinkName: newLinkName,
-  
+        }, function(data){
+          self.setState({ post: data.post,
+            postLinks: data.postLinks,
+            newLinkHref: "",
+            newLinkName: ""
+          })
         })
-        .then(function (response) {
-          self.setState({ post: response.data.post })
-          self.setState({ postLinks: response.data.postLinks })
-          self.setState({ newLinkHref: "" })
-          self.setState({ newLinkName: "" })
-    
-    
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+
+
     }
 
     removeLinkFromPost(event, link) {
-
       event.preventDefault();
       var postId = this.state.post.id
       var linkId = link.id
       var self = this;
-      axios.defaults.headers.common["Authorization"] = TOKEN; 
-      axios.post(URL_REMOVE_LINK_FROM_POST, {
+
+      postDataWithAxios(URL_REMOVE_LINK_FROM_POST, {
         postId: postId,
         linkId: linkId,
+      }, function(data){
+        self.setState({ post:data.post,
+          postLinks:data.postLinks,
+          availableLinks:data.availableLinks
+        })
       })
-      .then(function (response) {
-        self.setState({ post: response.data.post })
-        self.setState({ postLinks: response.data.postLinks })
-        self.setState({ availableLinks: response.data.availableLinks })
-      
 
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   }
 
 
   addLinkToPost(event) {
     var name = event.target.name;
     var value = event.target.value;
-    this.setState({
-        [name]: value    });
+    this.setState({ [name]: value });
       
       var linkToAddId = value;
       var postId = this.state.post.id;
       
       var self = this;
-      axios.defaults.headers.common["Authorization"] = TOKEN; // doesn't work (401)
-      axios.post(URL_ADD_LINK_TO_POST, {
+
+      postDataWithAxios(URL_ADD_LINK_TO_POST, {
         postId: postId,
         linkToAddId: linkToAddId,
-
+      }, function(data){
+        self.setState({ post: data.post,
+          postLinks: data.postLinks,
+          availableLinks: data.availableLinks
+        })
       })
-      .then(function (response) {
-        self.setState({ post: response.data.post })
-        self.setState({ postLinks: response.data.postLinks })
-        self.setState({ availableLinks: response.data.availableLinks })
 
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+
   }
 
     render() {
