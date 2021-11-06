@@ -1,9 +1,8 @@
 import React from "react"
 
-import axios from "axios";
+import postDataWithAxios from "../../../../axios/MyPostAxios";
 
 
-const TOKEN = process.env.REACT_APP_AUTH_TOKEN;
 const URL_TOGGLE_POST_ACTIVE = process.env.REACT_APP_URL_TOGGLE_POST_ACTIVE
 
 class StatusActive extends React.Component {
@@ -31,18 +30,16 @@ class StatusActive extends React.Component {
           [name]: value    });
           var postId = this.state.post.id
           var self = this;
-          axios.defaults.headers.common["Authorization"] = TOKEN; // doesn't work (401)
-          axios.post(URL_TOGGLE_POST_ACTIVE, {
+
+          postDataWithAxios(URL_TOGGLE_POST_ACTIVE,{
             postId: postId,
             active:value,
+          }, function(data){
+            self.setState({ post: data.post })
+            self.setState({ poststatus: data.post.active })
           })
-          .then(function (response) {
-            self.setState({ post: response.data.post })
-            self.setState({ poststatus: response.data.post.active })
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+
+
       }
 
 
@@ -50,7 +47,6 @@ class StatusActive extends React.Component {
       return (  
         <label htmlFor="poststatus">Status { this.state.poststatus ? "Aktiv" : "inaktiv" }
             { this.state.poststatus === true ?  <input onChange={this.handleInputChange } type="checkbox" name="poststatus" id="poststatus" checked={ this.state.poststatus }/> :  <input onChange={ this.handleInputChange } type="checkbox" name="poststatus" id="poststatus" checked={ this.state.poststatus }/> } 
-           
         </label>
       );
     }

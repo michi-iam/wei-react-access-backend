@@ -1,7 +1,11 @@
 import React from 'react';
 import PageTitle from "../subcomponents/PageTitle";
 import ShowPosts from './show/ShowPosts';
-import axios from 'axios';
+import getDataWithAxios from "../axios/MyGetAxios";
+
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 class AddPost extends React.Component {
   constructor(props){
     super(props)
@@ -12,16 +16,13 @@ class AddPost extends React.Component {
 
 
   componentDidMount() {
-    axios.get(`http://192.168.178.72:8000/get_categories`)
-    .then(res => {
-      const data = res.data;
-      console.log(res)
-      console.log(data.data)
-     this.setState({ categories: data.data})
-    })
+    var self = this;
+    getDataWithAxios(BASE_URL+"get_categories/", function(data){
+      self.setState({ categories: data.categories})
+    });
   }
   
-  //Each Category
+  //posts for each Category
     render () {
       var categories = this.state.categories;
       return <div className='container'>

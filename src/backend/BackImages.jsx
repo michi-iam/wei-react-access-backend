@@ -1,3 +1,6 @@
+// Test without backend
+
+
 import Post1 from "../assets/images/posts/post1.jpg";
 import Post2 from "../assets/images/posts/post2.jpg";
 import Post3 from "../assets/images/posts/post3.jpg";

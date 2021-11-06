@@ -1,3 +1,5 @@
+// Test without backend
+
 import Figuren from "../assets/images/rmfigurensmall.jpg";
 import Post1 from "../assets/images/posts/post1.jpg";
 import Post2 from "../assets/images/posts/post2.jpg";

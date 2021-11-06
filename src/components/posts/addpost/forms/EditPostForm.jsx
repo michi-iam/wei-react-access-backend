@@ -1,12 +1,14 @@
 import React from "react"
 import PageTitle from "../../../subcomponents/PageTitle";
 import PostImages from "./images/PostImages";
-import axios from "axios";
 import PostSelect from "./select/CategoryAndTemplate";
 import StatusActive from "./select/StatusActive";
 import PostLinks from "./links/PostLinks";
 
-const TOKEN = process.env.REACT_APP_AUTH_TOKEN;
+import getDataWithAxios from "../../../axios/MyGetAxios";
+import postDataWithAxios from "../../../axios/MyPostAxios";
+
+
 const URL_EDIT_POST_BASICS = process.env.REACT_APP_URL_EDIT_POST_BASICS;
 const URL_GET_POSTCHOICES = process.env.REACT_APP_URL_GET_POSTCHOICES;
 
@@ -81,10 +83,10 @@ class EditPostForm extends React.Component {
     }
 
     componentDidMount() {
-      axios.get(URL_GET_POSTCHOICES)
-      .then(response => {
-       this.setState({ categories: response.data.categories})
-       this.setState({ templates: response.data.templates})
+      var self = this;
+      getDataWithAxios(URL_GET_POSTCHOICES, function(data){
+        self.setState({ categories: data.categories})
+        self.setState({ templates: data.templates})
       })
     }
 
@@ -109,30 +111,25 @@ class EditPostForm extends React.Component {
       var linkName = this.state.linkName;
  
       var self = this;
-      axios.defaults.headers.common["Authorization"] = TOKEN; // doesn't work (401)
-      axios.post(URL_EDIT_POST_BASICS, {
+
+      postDataWithAxios(URL_EDIT_POST_BASICS, {
         postId: postId,
         title:title,
         subTitle:subTitle,
         text:text,
         extraText: extraText,
         linkName:linkName,
-
-      })
-      .then(function (response) {
-        self.setState({ post: response.data.post })
-        self.setState({ category: response.data.category })
-        self.setState({ template: response.data.template })
+      }, function(data){
+        self.setState({ post: data.post })
+        self.setState({ category: data.category })
+        self.setState({ template: data.template })
 
         self.setState({ updated: true })
         setTimeout(() => {
           self.setState({ updated: false })
         }, 3000);
-  
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+
 
     }
   

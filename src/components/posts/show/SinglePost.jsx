@@ -1,20 +1,17 @@
 import React from 'react';
 import EditPostForm from '../addpost/forms/EditPostForm';
 
+
 class SinglePost extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      
       post: this.props.post,
-      edit: false,
+      edit: false, // show or edit 
     }
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount(){
-      
-  }
   
   handleClick() {
       this.setState({ edit: true })

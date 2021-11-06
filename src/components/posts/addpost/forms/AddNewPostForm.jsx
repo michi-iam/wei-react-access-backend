@@ -1,7 +1,10 @@
 import React from "react"
+
+
 import PageTitle from "../../../subcomponents/PageTitle";
-import axios from "axios";
-const TOKEN = process.env.REACT_APP_AUTH_TOKEN;
+import postDataWithAxios from "../../../axios/MyPostAxios";
+
+
 const URL_EDIT_POST_BASICS = process.env.REACT_APP_URL_EDIT_POST_BASICS;
 
 class AddNewPostForm extends React.Component {
@@ -31,26 +34,21 @@ class AddNewPostForm extends React.Component {
       var extraText = this.state.extraText;
 
       var self = this;
-      axios.defaults.headers.common["Authorization"] = TOKEN; // doesn't work (401)
-      axios.post(URL_EDIT_POST_BASICS, {
+
+      postDataWithAxios(URL_EDIT_POST_BASICS, {
         postId: "newPost",
         title:title,
         subTitle:subTitle,
         text:text,
         extraText: extraText,
-      })
-      .then(function (response) {
-        self.setState({ post: response.data.post })
-
+      }, function(data){
+        self.setState({ post: data.post })
         self.setState({ updated: true })
         setTimeout(() => {
           self.setState({ updated: false })
         }, 3000);
-  
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+
     }
   
     render() {

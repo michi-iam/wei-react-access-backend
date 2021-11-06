@@ -1,7 +1,7 @@
 import React from "react"
 
 import axios from "axios";
-
+import getDataWithAxios from "../../../../axios/MyGetAxios";
 
 
 const TOKEN = process.env.REACT_APP_AUTH_TOKEN;
@@ -30,14 +30,12 @@ class CategoryAndTemplate extends React.Component {
     componentDidMount() {
         this.setState({ is_template: this.props.isTemplate })
 
-      axios.get(URL_GET_POSTCHOICES)
-      .then(response => {
-        console.log("response.data.categories")
-        console.log(response.data.categories)
-       this.setState({ categories: response.data.categories})
-       this.setState({ templates: response.data.templates})
+        var self = this;
+        getDataWithAxios(URL_GET_POSTCHOICES, function(data){
+          self.setState({ categories: data.categories})
+          self.setState({ templates: data.templates})
+        })
 
-      })
       this.setState({ categoryId: this.state.category.id })
       this.setState({ templateId: this.state.template.id })
     }
