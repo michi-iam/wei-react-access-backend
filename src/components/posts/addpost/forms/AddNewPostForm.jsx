@@ -53,31 +53,41 @@ class AddNewPostForm extends React.Component {
   
     render() {
       return (
-        <div className="row mt-5 bg-warning rounded shadow p-4">
-           <PageTitle firstLine="" secondLine="" thirdLine="Neuer Post" />
-          <form onSubmit={this.handleSubmit}>       
-              <div className="row">
-                <label className="form-label" htmlFor="title">Titel:
-                    <input onChange={ this.handleChange } name="title" placeholder="title" type="text" className="form-control" />
-                </label>
+        <div className="MyContainer">
+          <div className="MyTitle">
+            <h1>Neuer Post</h1>
+          </div>
+          <div className="container mt-5">
+            <form onSubmit={this.handleSubmit}>       
+                <div className="row">
+                  <label className="form-label" htmlFor="title">Titel:
+                      <input onChange={ this.handleChange } name="title" placeholder="title" type="text" className="form-control" />
+                  </label>
+                </div>
+                <div className="row">
+                  <label className="form-label" htmlFor="subTitle">Untertitle:
+                    <input onChange={ this.handleChange } name="subTitle" placeholder="subTitle" type="text" className="form-control" />
+                  </label>
+                </div>
+                <div className="row">
+                  <label className="form-label" htmlFor="text">Text:
+                    <textarea rows="36" onChange={ this.handleChange } name="text" placeholder="text" type="text" className="form-control" />
+                  </label>
+                </div>
+                <div className="row">
+                  <label className="form-label" htmlFor="subTitle">Extra-Text:
+                    <textarea rows="6" onChange={ this.handleChange } name="extraText" placeholder="extraText" type="text" className="form-control" />
+                  </label>
+                </div>
+              <div className="row justify-content-end mt-3">
+                <div className="col-3">
+                  <div className="row">
+                    <button className="btn btn-success" type="submit">eintragen</button>
+                  </div>
+                </div>
               </div>
-              <div className="row">
-                <label className="form-label" htmlFor="subTitle">Untertitle:
-                  <input onChange={ this.handleChange } name="subTitle" placeholder="subTitle" type="text" className="form-control" />
-                </label>
-              </div>
-              <div className="row">
-                <label className="form-label" htmlFor="text">Text:
-                  <textarea onChange={ this.handleChange } name="text" placeholder="text" type="text" className="form-control" />
-                </label>
-              </div>
-              <div className="row">
-                <label className="form-label" htmlFor="subTitle">Extra-Text:
-                  <textarea onChange={ this.handleChange } name="extraText" placeholder="extraText" type="text" className="form-control" />
-                </label>
-              </div>
-            <button className="btn btn-success" type="submit">eintragen</button>
-          </form>
+            </form>
+          </div>
 
         </div>
       );

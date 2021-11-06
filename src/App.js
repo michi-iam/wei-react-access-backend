@@ -9,6 +9,7 @@ import Posts from "./components/posts/Posts";
 import Navbar from './components/navbar/Navbar';
 import AddNewPostForm from './components/posts/addpost/forms/AddNewPostForm';
 import MyLogin from './components/login/MyLogin';
+import EditPostForm from './components/posts/addpost/forms/EditPostForm';
 
 
 // tokens to sessionstorage
@@ -43,7 +44,10 @@ function App() {
           </Route>
           <Route path="/addnewpost">
             <AddNewPostForm />
-            </Route>
+          </Route>
+          <Route path="/editpost">
+            <EditPostForm />
+          </Route>
           <Route path="">
             <Dashboard />
           </Route>

@@ -45,9 +45,11 @@ class StatusActive extends React.Component {
 
     render() {
       return (  
-        <label htmlFor="poststatus">Status { this.state.poststatus ? "Aktiv" : "inaktiv" }
-            { this.state.poststatus === true ?  <input onChange={this.handleInputChange } type="checkbox" name="poststatus" id="poststatus" checked={ this.state.poststatus }/> :  <input onChange={ this.handleInputChange } type="checkbox" name="poststatus" id="poststatus" checked={ this.state.poststatus }/> } 
-        </label>
+        <div className="row border border-secondary p-2 border-1">
+          <label className="form-label " htmlFor="poststatus">Status { this.state.poststatus ? <span className="text-success fw-bolder">"Aktiv"</span> : <span className="text-danger fw-bolder">"inaktiv"</span> }
+            { this.state.poststatus === true ?  <input className="form-check-input ms-3" onChange={this.handleInputChange } type="checkbox" name="poststatus" id="poststatus" checked={ this.state.poststatus }/> :  <input className="form-check-input ms-3" onChange={ this.handleInputChange } type="checkbox" name="poststatus" id="poststatus" checked={ this.state.poststatus }/> } 
+          </label>
+        </div>
       );
     }
   }

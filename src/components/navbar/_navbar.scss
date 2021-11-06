@@ -1,0 +1,13 @@
+$navbarColor: rgb(238, 255, 164); 
+$navbarDropDown: rgb(243, 208, 131);
+
+#MyNavbar {
+    background-color: $navbarColor;
+    & .dropdown-menu {
+        background-color: $navbarDropDown;
+     
+        & a:hover {
+            background-color: $navbarColor;
+        }
+    }
+}

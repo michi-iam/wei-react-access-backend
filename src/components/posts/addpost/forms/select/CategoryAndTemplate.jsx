@@ -86,8 +86,8 @@ class CategoryAndTemplate extends React.Component {
     render() {
         var is_template = this.props.isTemplate;
       return (   is_template ? <div className="row">
-      <label className="form-label" htmlFor="template">Template:
-           <select onChange={event => this.handleChange(event) } name="templateId" id="">
+      <label className="form-label" htmlFor="template">
+           <select onChange={event => this.handleChange(event) } name="templateId" id="" className="form-select">
            <option value={ this.state.template.id }>{this.state.template.name}</option>
             { this.state.templates.map((template)=>{
               return <option key={ template.id} value={ template.id }>{template.name}</option>
@@ -95,8 +95,8 @@ class CategoryAndTemplate extends React.Component {
            </select>
       </label>
     </div> : <div className="row">
-      <label className="form-label" htmlFor="category">Kategorie:
-           <select onChange={event => this.handleChange(event) } name="categoryId" id="">
+      <label className="form-label" htmlFor="category">
+           <select onChange={event => this.handleChange(event) } name="categoryId" id="" className="form-select">
            <option value={ this.state.category.id }>{this.state.category.name}</option>
             { this.state.categories.map((category)=>{
               return <option key={ category.id} value={ category.id }>{category.name}</option>

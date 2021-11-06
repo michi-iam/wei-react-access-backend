@@ -1,1 +1,84 @@
-@import "~bootstrap/scss/bootstrap";
+$pirmary: rgb(71, 255, 163);
+$secondary: rgb(255, 212, 71);
+
+$info:rgb(71, 255, 255);
+$danger: rgb(83, 2, 2);
+$warning: rgb(71, 255, 255);
+$dark: rgb(71, 255, 255);
+$success: rgb(71, 255, 184);
+$light: rgb(243, 253, 253);
+
+$bodyColor: rgb(199,199,199);
+$textColor1: rgb(22,22,22);
+$gray: rgb(199,199,199);
+$link: rgb(199,199,199);
+$edit: rgb(71, 157, 255);
+
+
+$theme-colors: (
+  "textColor1": $textColor1,  
+  "link":$link,
+  "gray": $gray,
+  "light": $light,
+  "edit": $edit,
+  "success": $success,
+  "secondary":$secondary,
+  "danger": $danger,
+);
+
+
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+@import "./components/navbar/navbar";
+
+body {
+    background-color: $bodyColor,
+}
+
+.MyContainer {
+    @extend .container-fluid;
+    @extend .pt-5;
+    @extend .pb-5;
+    background-color: $info;
+    min-height: 100vh;
+}
+
+.MyTitle {
+    @extend .row;
+    @extend .text-center;
+    @extend .rounded;
+    @extend .shadow-lg;
+    @extend .text-center;
+    @extend .p-3;
+    @extend .fw-bolder;
+    background-color: $pirmary;
+
+}
+
+.MyCategoryContainer {
+    @extend .container;
+    @extend .rounded;
+    @extend .shadow-lg;
+    @extend .p-2;
+    @extend .pt-5;
+    @extend .pb-5;
+    @extend .mt-5;
+    background-color: $secondary;
+}
+
+//SinglePost
+.MyPostTitle {
+    @extend .row;
+    & h3 {
+        @extend .p-2;
+        @extend .rounded;
+        background-color: $pirmary;
+    }
+}
+
+.MyEditBtn {
+    @extend .btn;
+    @extend .btn-edit;
+
+}

@@ -8,16 +8,7 @@ const URL_ADD_OR_REMOVE_POST_IMAGE = process.env.REACT_APP_URL_ADD_OR_REMOVE_POS
 const URL_SET_MAINIMAGE = process.env.REACT_APP_URL_SET_MAINIMAGE;
 
 const URL_GET_AVAILABLE_IMAGES = process.env.REACT_APP_URL_GET_AVAILABLE_IMAGES;
-// function containsObject(obj, list) {
-//   var i;
-//   for (i = 0; i < list.length; i++) {
-//       if (list[i].src === obj.src) {
-//           return true;
-//       }
-//   }
 
-//   return false;
-// }
 
 
 class PostImages extends React.Component {
@@ -83,9 +74,9 @@ class PostImages extends React.Component {
     render() {
         var AvailableImages = () => { 
           var aVimgs = this.state.availableImages;
-          return <div className="row mt-2">
+          return <div className="row mt-2 mb-2">
           <div className="row">
-            <h3>Verfügbare Bilder</h3>
+            <h3 className="bg-secondary p-2 rounded">Verfügbare Bilder</h3>
           </div>
            { Object.keys(aVimgs).map(function(keyName, keyIndex){
                return <div className="col-1" key={ keyIndex }>
@@ -101,10 +92,10 @@ class PostImages extends React.Component {
         var PostImages = () => {
       
         var postImages = this.state.postImages
-          return <div className="row mt-2">
-            <div className="row">
-              <h3>Bilder zum Post</h3>
-            </div>
+          return <div className="row mt-2 mb-2">
+          <div className="row">
+            <h3 className="bg-secondary p-2 rounded">Zugeordnete Bilder</h3>
+          </div>
             <div className="row">
               { Object.keys(postImages).map(function(keyName, keyIndex){
                 var image = postImages[keyName]
@@ -120,16 +111,20 @@ class PostImages extends React.Component {
         }
 
         var MainImage = () => {
-          return <div className="row">
-          <div className="col-1">
-            Hauptbild 
-            <img className="img img-fluid" src={ this.state.mainImage.src } alt={ this.state.mainImage.alt } />
+          return <div className="row mt-2 mb-2">
+          <div className="row">
+            <h3 className="bg-secondary p-2 rounded">Hauptbild</h3>
+          </div>
+          <div className="row">
+            <div className="col-1">
+              <img className="img img-fluid" src={ this.state.mainImage.src } alt={ this.state.mainImage.alt } />
+            </div>
           </div>
           </div>
         }
 
       return (
-        <div className="row mt-5 bg-warning rounded shadow p-4">
+        <div className="row" >
             <AvailableImages />
             <PostImages />
             <MainImage />

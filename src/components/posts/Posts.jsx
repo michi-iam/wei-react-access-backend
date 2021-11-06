@@ -25,10 +25,12 @@ class AddPost extends React.Component {
   //posts for each Category
     render () {
       var categories = this.state.categories;
-      return <div className='container'>
-          <PageTitle firstLine="" secondLine="" thirdLine="Posts" />
+      return <div className='MyContainer'>
+          <div className="MyTitle">
+            <h1>Posts</h1>
+          </div>
           {Object.keys(categories).map(function(keyName, keyIndex){
-                return <div id={ categories[keyName].linkName } key={keyIndex} className="row mb-2">
+                return <div id={ categories[keyName].linkName } key={keyIndex} className="MyCategoryContainer">
                     <ShowPosts category={ categories[keyName] } /> 
                   </div>
                 })}

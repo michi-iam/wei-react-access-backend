@@ -27,20 +27,20 @@ var BasicPostForm = ({ post, self }) => { return <div>
   </div>
   <div className="row">
     <label className="form-label" htmlFor="text">Text:
-      <textarea style={{ whiteSppace:"pre-line"}} defaultValue={ self.state.text } onChange={event => self.handleChange(event) } name="text" placeholder="text" type="text" className="form-control" />
+      <textarea rows="36" style={{ whiteSppace:"pre-line"}} defaultValue={ self.state.text } onChange={event => self.handleChange(event) } name="text" placeholder="text" type="text" className="form-control" />
     </label>
   </div>
   <div className="row">
     <label className="form-label" htmlFor="subTitle">Extra-Text:
-      <textarea defaultValue={ self.state.extraText } onChange={event => self.handleChange(event) } name="extraText" placeholder="extraText" type="text" className="form-control" />
+      <textarea rows="6" defaultValue={ self.state.extraText } onChange={event => self.handleChange(event) } name="extraText" placeholder="extraText" type="text" className="form-control" />
     </label>
   </div>
   <div className="row">
     <label className="form-label" htmlFor="linkName">Link-Name:
-      <textarea defaultValue={ self.state.linkName } onChange={event => self.handleChange(event) } name="linkName" placeholder="linkName" type="text" className="form-control" />
+      <input defaultValue={ self.state.linkName } onChange={event => self.handleChange(event) } name="linkName" placeholder="linkName" type="text" className="form-control" />
     </label>
   </div>
-  <div className="row">
+  <div className="row mt-3">
     <label className="form-label" htmlFor="template">Template:
       <PostSelect post = { post } isTemplate={ true } />
 
@@ -51,9 +51,7 @@ var BasicPostForm = ({ post, self }) => { return <div>
       <PostSelect post = { post } isTemplate={ false }/>
     </label>
   </div>
-  <div className="row">
-      <StatusActive post = { post } />
-  </div>
+
 
 </div>
 }
@@ -140,17 +138,39 @@ class EditPostForm extends React.Component {
         var updated = this.state.updated;
 
       return (
-        <div className="row mt-5 bg-warning rounded shadow p-4">
-           <PageTitle firstLine="" secondLine="" thirdLine={"Post: " +  post.title  + " bearbeiten"} />
-           <PostImages post={ post }/>
-          <form onSubmit={this.handleSubmit}>       
-            <BasicPostForm post={ post } self={ this }/>
-            { updated ? <button className="btn btn-info" disabled>GEÄNDERT</button> 
-            : <button className="btn btn-success" type="submit">ändern</button> }
-          </form>
-          <div className="row">
-              <PostLinks post = { post } />
-          </div>
+        <div className="container bg-light border border-success border-4">
+           <div className="row  text-center p-5">
+             <h3 className="text-muted">{"Post:"}</h3>
+             <h1 className="fw-bolder">{post.title}</h1>
+             <h3 className="text-muted">{"bearbeiten"}</h3>
+           </div>
+           <div className="row justify-content-center ">
+              <div className="row">
+               <PostImages post={ post }/>
+              </div>
+              <div className="row mt-3">
+              <div className="row">
+                <h3 className="bg-success p-2 rounded">Text</h3>
+              </div>
+               <div className="row mt-5 mb-3">
+                <form onSubmit={this.handleSubmit}>       
+                    <BasicPostForm post={ post } self={ this }/>
+                    <div className="row justify-content-end">
+                      <div className="col-4 text-end">
+                      { updated ? <button className="btn btn-info" disabled>GEÄNDERT</button> 
+                    : <button className="btn btn-success" type="submit">ändern</button> }
+                      </div>
+                    </div>
+                  </form>
+               </div>
+              </div>
+              <div className="row mt-3 text-center">
+                <StatusActive post = { post } />
+            </div>
+              <div className="row mt-5">
+                  <PostLinks post = { post } />
+              </div>
+           </div>
         </div>
       );
     }
@@ -160,13 +180,3 @@ export default EditPostForm;
 
 
 
-// function containsObject(obj, list) {
-//   var i;
-//   for (i = 0; i < list.length; i++) {
-//       if (list[i].src === obj.src) {
-//           return true;
-//       }
-//   }
-
-//   return false;
-// }

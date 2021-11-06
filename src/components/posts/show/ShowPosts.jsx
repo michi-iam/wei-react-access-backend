@@ -17,9 +17,9 @@ class ShowPosts extends React.Component {
     render () {
       var posts = this.state.posts;
       var catTitle = this.state.catTitle;
-      return <div className='container'>
-          <div className="row bg-warning p-3">
-          <PageTitle firstLine="" secondLine="" thirdLine={ catTitle } />
+      return <div className='row'>
+          <div className="row bg-gray p-3 shadow-lg rounded text-light mb-4">
+            <h3>{ catTitle }</h3>
           </div>
           {Object.keys(posts).map(function(keyName, keyIndex){
                 return <SinglePost post={ posts[keyName] } key={ keyIndex } />
