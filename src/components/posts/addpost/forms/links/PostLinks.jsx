@@ -113,14 +113,14 @@ class PostLinks extends React.Component {
         var availableLinks = this.state.availableLinks
         var self = this;
         return (  
-        <div className="row">
+        <div className="row pb-5">
             <div className="row">
-                <div className="row">
-                    <h4>Links</h4>
-                </div>
+            <div className="row">
+              <h3 className="bg-secondary p-2 rounded">Links</h3>
+            </div>
                 {Object.keys(postLinks).map(function(keyName, keyIndex){
                 return <div className="row" key={ keyIndex }>
-                        <div className="row">
+                        <div className="row mt-2">
                             <div className="col-5">
                                 { postLinks[keyName].name }
                             </div>
@@ -129,19 +129,18 @@ class PostLinks extends React.Component {
                             </div>
                             <div className="col-1">
                                 <form onSubmit={event => self.removeLinkFromPost( event, postLinks[keyName] ) }>
-    
-                                    <button type="submit">remove</button>
+                                    <button className="btn btn-danger" type="submit">remove</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 })}
             </div>
+            <div className="row mt-5">
             <div className="row">
-              <div className="row">
-                <h4>Links hinzufügen</h4>
-              </div>
-              <div className="row">
+              <h3 className="bg-secondary p-2 rounded">Links zum Post hinzufügen</h3>
+            </div>
+              <div className="row mt-2">
                 <label className="form-label" htmlFor="linkToAddId">Verfügbare Links:
                     <select className="form-select" onChange={event => this.addLinkToPost(event) } name="linkToAddId" id="linkToAddId">
                         <option ></option>
@@ -153,25 +152,31 @@ class PostLinks extends React.Component {
                 </label>
               </div>
             </div>
-            <div className="row">
-                <form onSubmit={ this.handleSubmit }>
-                  <div className="row">
-                    <h4>Neuen Link eintragen</h4>
-                  </div>
+            <div className="row mt-5">
+            <div className="row mt-2">
+              <h3 className="bg-secondary p-2 rounded">Neuen Link eintragen</h3>
+            </div>
                 <div className="row">
-                    <label className="form-label" htmlFor="newLinkHref">Url
-                        <input className="form-control" onChange={ this.handleChange } name="newLinkHref" type="text" placeholder="href" />
-                    </label>  
+                  <form onSubmit={ this.handleSubmit }>
+                    <div className="row">
+                        <label className="form-label" htmlFor="newLinkHref">Url
+                            <input className="form-control" onChange={ this.handleChange } name="newLinkHref" type="text" placeholder="href" />
+                        </label>  
+                    </div>
+                    <div className="row">
+                        <label className="form-label" htmlFor="newLinkName">Link-Name
+                            <input className="form-control" onChange={ this.handleChange } name="newLinkName" type="text" placeholder="Link-Name" />
+                        </label>
+                    </div>
+                      <div className="row justify-content-end">
+                        <div className="col-3">
+                          <div className="row text-end">
+                          <button className="btn btn-success" type="submit">hinzufügen</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
                 </div>
-                <div className="row">
-                    <label className="form-label" htmlFor="newLinkName">Link-Name
-                        <input className="form-control" onChange={ this.handleChange } name="newLinkName" type="text" placeholder="Link-Name" />
-                    </label>
-                </div>
-          
-                    <button type="submit">hinzufügen</button>
-                 
-                </form>
             </div>
         </div>
       );

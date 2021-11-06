@@ -55,12 +55,23 @@ class MyLogin extends React.Component {
       render(){
           return(
              this.state.loggedIn ? <Redirect to="/" /> :
-             <div>
+             <div className="container">
+              <div className="row bg-gray p-3 shadow-lg rounded text-light mb-4 text-center mt-5">
+                <h3>Login</h3>
+              </div>
+             <div className="row mt-5 justify-content-center">
+             <div className="col-8">
              <form onSubmit={ this.handleSubmit }>
-                 <input onChange={ this.handleChange } name="username" type="text" placeholder="username" />
-                 <input onChange={ this.handleChange } name="password" type="password" placeholder="passwort" />
-                 <button type="submit">login</button>
+                 <input className="form-control mt-5 mb-2" onChange={ this.handleChange } name="username" type="text" placeholder="username" />
+                 <input className="form-control" onChange={ this.handleChange } name="password" type="password" placeholder="passwort" />
+                 <div className="row mt-2 justify-content-end">
+                   <div className="col-auto">
+                   <button className="btn btn-success" type="submit">login</button>
+                   </div>
+                 </div>
              </form>
+             </div>
+             </div>
          </div>
           )
       }

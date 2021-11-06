@@ -138,8 +138,8 @@ class EditPostForm extends React.Component {
         var updated = this.state.updated;
 
       return (
-        <div className="container bg-light border border-success border-4">
-           <div className="row  text-center p-5">
+        <div className="container bg-light border border-success border-4 ">
+           <div className="row  text-center p-5 ">
              <h3 className="text-muted">{"Post:"}</h3>
              <h1 className="fw-bolder">{post.title}</h1>
              <h3 className="text-muted">{"bearbeiten"}</h3>
@@ -157,8 +157,10 @@ class EditPostForm extends React.Component {
                     <BasicPostForm post={ post } self={ this }/>
                     <div className="row justify-content-end">
                       <div className="col-4 text-end">
+                      <div className="row">
                       { updated ? <button className="btn btn-info" disabled>GEÄNDERT</button> 
                     : <button className="btn btn-success" type="submit">ändern</button> }
+                      </div>
                       </div>
                     </div>
                   </form>

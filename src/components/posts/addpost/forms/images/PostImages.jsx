@@ -102,7 +102,7 @@ class PostImages extends React.Component {
                 return <div className="col-1"  key={ keyIndex }>
                   <img onClick={() => this.addOrRemovePostImage(image, true) } key={ keyIndex } className="img img-fluid" src={ image.src } alt={ image.alt } />
                   { image.src === this.state.mainImage.src ? "" : 
-                  <button onClick={() => this.setMainImage({image:image, self:this}) } >als Hauptbild</button> }
+                  <button className="btn btn-sm btn-success mt-1" onClick={() => this.setMainImage({image:image, self:this}) } >als Hauptbild festlegen</button> }
                   </div>
               }, this)}
 
