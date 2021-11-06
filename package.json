@@ -40,5 +40,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "resolutions": {
+    "**/glob-parent": "^5.1.2",
+    "**/immer": "^9.0.6",
+    "**/set-value": "^4.0.1"
+
   }
 }
