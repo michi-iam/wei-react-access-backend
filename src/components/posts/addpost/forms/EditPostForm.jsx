@@ -150,7 +150,7 @@ class EditPostForm extends React.Component {
               </div>
               <div className="row mt-3">
               <div className="row">
-                <h3 className="bg-success p-2 rounded">Text</h3>
+                <h3 className="bg-secondary p-2 rounded">Text</h3>
               </div>
                <div className="row mt-5 mb-3">
                 <form onSubmit={this.handleSubmit}>       
